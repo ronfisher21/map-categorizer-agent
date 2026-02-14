@@ -1,0 +1,18 @@
+# Project: Map Categorizer Agent
+You are an expert AI Engineer building an agentic workflow to extract, classify, and visualize Google Maps data.
+
+## Tech Stack
+- Python 3.10+
+- Google Maps SDK (for Geocoding/Places API)
+- OpenAI/Anthropic SDK (for classification logic)
+- pandas (for data handling)
+
+## Core Workflow
+1. Load a list of places (CSV or text).
+2. Use Google Places API to fetch 'latitude', 'longitude', and 'native_types'.
+3. Use an LLM to classify each place into custom categories based on 'native_types' and 'name'.
+4. Export the final data to a CSV formatted specifically for Google My Maps import.
+
+## Output Rules
+- Format CSV with headers: [Name, Latitude, Longitude, Category, Icon_Color].
+- Ensure all API calls have error handling and rate limiting.
