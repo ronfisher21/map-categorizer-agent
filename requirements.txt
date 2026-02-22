@@ -1,7 +1,7 @@
 # Map Categorizer Agent - Python 3.10+
 
 # Google Maps
-google-maps-services-python>=4.10.0
+googlemaps>=4.10.0
 
 # HTTP & env
 requests>=2.28.0

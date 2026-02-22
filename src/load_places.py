@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-
+import json
 
 def load_places(input_path: str | Path) -> list[dict]:
     path = Path(input_path)
@@ -10,6 +10,14 @@ def load_places(input_path: str | Path) -> list[dict]:
     if path.suffix.lower() == ".txt":
         return _load_txt(path)
     return _load_csv(path)
+
+
+def load_enriched(input_path: str | Path) -> list[dict]:
+    path = Path(input_path)
+    if not path.exists():
+        raise FileNotFoundError(str(path))
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def _load_txt(path: Path) -> list[dict]:

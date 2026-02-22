@@ -2,6 +2,8 @@
 
 Reference: [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (code-wise steps 1–10).
 
+Pipeline step inputs/outputs: [docs/PIPELINE_STEPS.md](docs/PIPELINE_STEPS.md).
+
 ---
 
 ## What We Just Finished
@@ -50,7 +52,7 @@ Reference: [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (code-wise steps 1�
 ## Technical Gotchas & Context
 
 - **No API for My Maps:** The app never writes to My Maps. It only updates a master store and regenerates a CSV; you re-import that CSV into [Google My Maps](https://www.google.com/maps/d/) manually (first time: create map and map columns; later: re-import the new CSV to update).
-- **Input file:** Current run used `data/input/יפן.csv` (set via `INPUT_FILE` in `.env`). Root `main.py` resolves path as `INPUT_DIR / settings.INPUT_FILE`; if `INPUT_FILE` is empty, this can break.
+- **Input file:** Pipeline input lives under **`data/steps/input/`** (e.g. put your CSV there; `INPUT_FILE` in `.env` is the filename). Step outputs go to **`data/steps/output/`** (`places_loaded.json`, `enriched.json`, `categorized.json`). See [docs/PIPELINE_STEPS.md](docs/PIPELINE_STEPS.md).
 - **Places API field names:** Code uses `types` (list) and normalized keys like `user_ratings_count`; IMPLEMENTATION_PLAN overview mentions `native_types` — same data, different naming.
 - **Enriched JSON is intermediate only:** `data/output/enriched_*.json` is for debugging. The canonical output for My Maps is the CSV from Step 7 (not yet implemented).
 - **Geocoding fallback:** If Places returns no coordinates (e.g. address-only input), there is no Geocoding API fallback yet; optional per plan.
