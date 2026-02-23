@@ -30,6 +30,7 @@ INPUT_FILE: str = os.getenv("INPUT_FILE", "").strip()
 STEP_PLACES_LOADED = "places_loaded.json"
 STEP_ENRICHED = "enriched.json"
 STEP_CATEGORIZED = "categorized.json"
+STEP_CATEGORIZED_WITH_ICONS = "categorized_with_icons.json"
 
 # ---------------------------------------------------------------------------
 # Google Maps

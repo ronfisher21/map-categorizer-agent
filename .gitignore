@@ -22,3 +22,23 @@ env/
 # Local-only docs (not synced to remote)
 PROGRESS.md
 IMPLEMENTATION_PLAN.md
+
+# Cursor rules (not synced to remote)
+.cursorrules
+
+# Data dirs: ignore contents, keep folder structure via .gitkeep
+data/*
+!data/steps/
+data/steps/*
+!data/steps/input/
+!data/steps/output/
+data/steps/input/*
+!data/steps/input/.gitkeep
+data/steps/output/*
+!data/steps/output/.gitkeep
+!data/input/
+!data/output/
+data/input/*
+!data/input/.gitkeep
+data/output/*
+!data/output/.gitkeep

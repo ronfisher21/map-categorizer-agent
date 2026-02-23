@@ -7,6 +7,7 @@ from src.main import (
     run_step_load,
     run_step_enrich,
     run_step_categorize,
+    run_step_assign_icons,
     run_full_pipeline,
 )
 
@@ -14,11 +15,12 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 INPUT_DIR = settings.INPUT_DIR
 
-# Run only one step: RUN_STEP=load | enrich | categorize | all
+# Run only one step: RUN_STEP=load | enrich | categorize | assign_icons | all
 # - load: load CSV/txt from data/steps/input/ → save to data/steps/output/places_loaded.json
 # - enrich: read places_loaded.json → Google Places → save to data/steps/output/enriched.json
 # - categorize: read enriched.json → LLM → save to data/steps/output/categorized.json
-# - all (default): run load → enrich → categorize, saving each step
+# - assign_icons: read categorized.json → add icon per category → save to categorized_with_icons.json
+# - all (default): run load → enrich → categorize → assign_icons, saving each step
 RUN_STEP = os.getenv("RUN_STEP", "all").strip().lower()
 
 
@@ -37,6 +39,9 @@ def main() -> None:
     elif RUN_STEP == "categorize":
         categorized = run_step_categorize()
         print(f"Step 3 (categorize): {len(categorized)} with categories → {settings.STEPS_OUTPUT_DIR / settings.STEP_CATEGORIZED}")
+    elif RUN_STEP == "assign_icons":
+        with_icons = run_step_assign_icons()
+        print(f"Step 4 (assign_icons): {len(with_icons)} with icons → {settings.STEPS_OUTPUT_DIR / settings.STEP_CATEGORIZED_WITH_ICONS}")
     else:
         categorized, failed = run_full_pipeline(input_path)
         print(f"Full pipeline: {len(categorized)} categorized, {len(failed)} failed at enrich.")

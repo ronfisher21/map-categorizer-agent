@@ -9,7 +9,8 @@ All step inputs and outputs use the **steps hierarchy**: `data/steps/input/` and
 | **1 – Load** | `load` | `data/steps/input/<INPUT_FILE>` (CSV or .txt from `.env`; e.g. `יפן.csv`) | `data/steps/output/places_loaded.json` |
 | **2 – Enrich** | `enrich` | **Standalone:** same as step 1 (`data/steps/input/<INPUT_FILE>`). **After step 1 (full pipeline):** `data/steps/output/places_loaded.json` | `data/steps/output/enriched.json` |
 | **3 – Categorize** | `categorize` | `data/steps/output/enriched.json` | `data/steps/output/categorized.json` |
-| **Full pipeline** | `all` (default) | `data/steps/input/<INPUT_FILE>` (only for step 1; steps 2 and 3 read from the step outputs above) | All three: `places_loaded.json`, `enriched.json`, `categorized.json` in `data/steps/output/` |
+| **4 – Assign icons** | `assign_icons` | `data/steps/output/categorized.json` only | `data/steps/output/categorized_with_icons.json` |
+| **Full pipeline** | `all` (default) | `data/steps/input/<INPUT_FILE>` (step 1); steps 2–4 read from step outputs above | `places_loaded.json`, `enriched.json`, `categorized.json`, `categorized_with_icons.json` in `data/steps/output/` |
 
 **Paths:** Step input dir = `data/steps/input/` (set as `INPUT_DIR`). Step output dir = `data/steps/output/` ([config/settings.py](../config/settings.py)).
 

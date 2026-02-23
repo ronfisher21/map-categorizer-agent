@@ -7,6 +7,7 @@ from typing import Any
 
 from config import settings
 
+from src.assign_icons import assign_icons
 from src.categorize import DEFAULT_CATEGORY, assign_quality_colors, categorize_places
 from src.google_places import fetch_place_details
 from src.load_places import load_places, load_enriched
@@ -109,6 +110,14 @@ def run_step_categorize() -> list[dict[str, Any]]:
     return enriched
 
 
+def run_step_assign_icons() -> list[dict[str, Any]]:
+    """Step 4: Load categorized.json from data/steps/output/, add icon per category, save to categorized_with_icons.json."""
+    places = load_step_output(settings.STEP_CATEGORIZED)
+    assign_icons(places)
+    save_step_output(places, settings.STEP_CATEGORIZED_WITH_ICONS)
+    return places
+
+
 # ---------------------------------------------------------------------------
 # Full pipeline (legacy / all-in-one)
 # ---------------------------------------------------------------------------
@@ -126,10 +135,11 @@ def run_enrich(input_path: str | Path, save_debug: bool = True) -> list[dict[str
 
 
 def run_full_pipeline(input_path: str | Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Run all steps in order, saving each step output. Returns (categorized list, failed from enrich)."""
+    """Run all steps in order, saving each step output. Returns (categorized with icons, failed from enrich)."""
     run_step_load(input_path)
     enriched, failed = run_step_enrich(input_path=None)
     if not enriched:
         return [], failed
-    categorized = run_step_categorize()
-    return categorized, failed
+    run_step_categorize()
+    with_icons = run_step_assign_icons()
+    return with_icons, failed

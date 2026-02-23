@@ -16,3 +16,6 @@ You are an expert AI Engineer building an agentic workflow to extract, classify,
 ## Output Rules
 - Format CSV with headers: [Name, Latitude, Longitude, Category, Icon_Color].
 - Ensure all API calls have error handling and rate limiting.
+
+## Git 
+- Do not run any git commands (clone, add, commit, push, pull, checkout, branch, etc.). The user manages version control manually. If git-related changes are needed, describe the commands or steps instead of executing them.
