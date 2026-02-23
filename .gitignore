@@ -18,3 +18,7 @@ env/
 
 # Optional: ignore large or regenerated output
 # data/output/
+
+# Local-only docs (not synced to remote)
+PROGRESS.md
+IMPLEMENTATION_PLAN.md
